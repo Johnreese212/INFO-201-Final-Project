@@ -7,19 +7,23 @@ library("maps")
 library("DT")
 
 page_one <- tabPanel(
-  "First Page"
+  "Overview"
 )
 
 page_two <- tabPanel(
-  "Second Page"
+  "Keywords"
 )
 
 page_three <- tabPanel(
-  "Third Page"
+  "Twitter Activity Analysis"
 )
 
 page_four <- tabPanel(
-  "Fourth Page"
+  "Approval Rating and Tweeting Frequency"
+)
+
+page_five <- tabPanel(
+  "Russia"
 )
 
 my_ui <- navbarPage(
@@ -27,7 +31,8 @@ my_ui <- navbarPage(
   page_one,
   page_two,
   page_three,
-  page_four
+  page_four,
+  page_five
 )
 
 
