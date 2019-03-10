@@ -1,4 +1,4 @@
-# a8: Data App
+# INFO 201 Final App
 library("shiny")
 library("dplyr")
 library("ggplot2")
