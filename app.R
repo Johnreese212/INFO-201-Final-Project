@@ -6,3 +6,56 @@ library("tidyr")
 library("maps")
 library("DT")
 
+page_one <- tabPanel(
+  "First Page"
+)
+
+page_two <- tabPanel(
+  "Second Page"
+)
+
+page_three <- tabPanel(
+  "Third Page"
+)
+
+page_four <- tabPanel(
+  "Fourth Page"
+)
+
+my_ui <- navbarPage(
+  "My app",
+  page_one,
+  page_two,
+  page_three,
+  page_four
+)
+
+
+my_server <- function(input,output) {
+  
+}
+
+
+shinyApp(ui = my_ui, server = my_server)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
