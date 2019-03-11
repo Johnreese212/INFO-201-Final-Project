@@ -24,8 +24,10 @@ page_one <- tabPanel(
 
 page_two <- tabPanel(
   "Tweet interaction based on key words",
-  titlePanel("How using certain key words affect the amount of interactions a tweet gets")
-
+  titlePanel("How using certain key words affect the amount of interactions a tweet gets"),
+  p("This will show which topics bring in the most likes and retweets among twitter users, and 
+    will show which topics spark the most conversation and activity on twitter and what topics people
+    care the most about")
 )
 
 page_three <- tabPanel(
@@ -40,7 +42,7 @@ page_four <- tabPanel(
       radioButtons(inputId = "approve", label = "Metric",choices = c("approve","disapprove")),
       textOutput(outputId = "corr"),
       p(""),
-      p("As can be soon, there exists a weak negative correlation between both Trump's 
+      p("As can be seen, there exists a weak negative correlation between both Trump's 
       approval rating and tweeting frequency and a weak positive correlation between Trump's
       disapproval rating and his tweeting frequency. Interestingly, the former correlation is stronger
       than the latter. Perhaps this indicates that Trump pays more attention to his approval ratings than
