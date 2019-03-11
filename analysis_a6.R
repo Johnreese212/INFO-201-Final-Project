@@ -3,9 +3,11 @@ library(jsonlite)
 library(httr)
 library(dplyr)
 library(stringr)
+library(tidyr)
+library(plyr)
 
 #Donald Trump's Twitter data from 2017
-trump_tweets <- read_json("data/2017_trump_twitter.json", simplifyVector = TRUE)
+trump_tweets <- read_json("data/2017_Trump_Twitter.json", simplifyVector = TRUE)
 trump_tweets <- trump_tweets %>% 
   select(created_at,
          text,
@@ -89,11 +91,57 @@ trump_daily_approval <- trump_approval %>%
 daily_approval_and_frequency <- inner_join(trump_tweet_frequency, trump_daily_approval, by = "Date")
 
 
+
 approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approve, daily_approval_and_frequency$Frequency)
 
 
 
 
 
+#View(daily_approval_and_frequency)
+
+approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approval_rating, daily_approval_and_frequency$Frequency)
+#View(approval_and_frequency_correlation)
+
+
+# Trump Twitter Analysis
+
+twitter_data <- as.data.frame(t(as.data.frame(strsplit(trump_tweets$created_at, " "), stringsAsFactors = FALSE)), stringsAsFactors = FALSE) 
+twitter_data <- twitter_data %>% 
+  mutate(created_at = trump_tweets$created_at) %>% 
+  left_join(trump_tweets, by = "created_at") %>% 
+  select(V2, V3, V6, V4, created_at, text, retweet_count, favorite_count, is_retweet)
+twitter_data <- twitter_data %>% 
+  mutate(month = match(twitter_data$V2, month.abb), day = V3, year = V6, time = V4) %>% 
+  select(month, day, year, time, created_at, text, retweet_count, favorite_count, is_retweet)
+
+monthly_tweets <- group_by(twitter_data, month) %>% 
+  count() %>% 
+  as.data.frame(stringAsVariable = FALSE) %>% 
+  mutate("Month" = month.name[month],
+         "Number of Tweets" = n) %>% 
+  select("Month", "Number of Tweets")
+
+monthly_tweet_count <- group_by(twitter_data, month) %>% 
+  count()
+
+get_monthly_info <- function(given_month) {
+  tweets <- monthly_tweet_count$n[monthly_tweet_count$month == given_month]
+  date <- month.name[given_month]
+  
+  avg_data <- twitter_data %>% 
+    filter(month == given_month) %>% 
+    summarize(
+      num_days = as.numeric(max(day)),
+      total_tweets = as.numeric(n()),
+      most_retweeted = text[retweet_count == max(retweet_count)][1],
+      least_retweeted = text[retweet_count == min(retweet_count)][1],
+      most_favorited = text[favorite_count == max(favorite_count)][1],
+      least_favorited = text[favorite_count == min(favorite_count)][1]
+    )
+  
+  avg_num_tweets <- round(avg_data$total_tweets / avg_data$num_days)
+  paste0("There were ", tweets, " tweets in ", date, " 2017, with an average of ", avg_num_tweets, " tweets per day.")
+}
 
 
