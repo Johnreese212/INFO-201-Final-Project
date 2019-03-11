@@ -31,13 +31,12 @@ page_four <- tabPanel(
     ),
     mainPanel(
       plotOutput(outputId = "frequency_plot"),
-      plotOutput(outputId = "date_plot")
+      plotOutput(outputId = "date_plot"),
+      p(""),
+      p("- The frequency is the number of times that Donald Trump tweeted in a day"),
+      p("- The approval rating is average of all approval ratings released in a day.")
     )
   )
-  
-  
-  
-  
 )
 
 page_five <- tabPanel(
@@ -73,12 +72,12 @@ my_server <- function(input,output) {
       x <- as.numeric(daily_approval_and_frequency$approve)
       y <- as.numeric(daily_approval_and_frequency$Frequency)
       freq_cor <- round(cor(x,y),2)
-      tex <- paste("The correlation between approval rating and frequency is", freq_cor)
+      tex <- paste("The correlation between approval rating and frequency is", paste0(freq_cor, "."))
     } else {
       x <- as.numeric(daily_approval_and_frequency$disapprove)
       y <- as.numeric(daily_approval_and_frequency$Frequency)
       freq_cor <- round(cor(x,y),2)
-      tex <- paste("The correlation between disapproval rating and frequency is", freq_cor)
+      tex <- paste("The correlation between disapproval rating and frequency is", paste0(freq_cor, "."))
     }
     tex
   })
