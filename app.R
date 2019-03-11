@@ -49,9 +49,9 @@ page_five <- tabPanel(
 
 my_ui <- navbarPage(
   "My app",
-  page_three,
-  page_two,
   page_one,
+  page_two,
+  page_three,
   page_four,
   page_five
 )
