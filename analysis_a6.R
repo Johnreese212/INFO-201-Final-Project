@@ -63,7 +63,7 @@ summary_approval <- trump_approval %>%
 
 average_12_31<- trump_approval[1343:1345,]
 average_12_31<- mean(average_12_31$approve)
-print(average_12_31)
+
 
 #Answering Our Question #4
 
@@ -83,14 +83,14 @@ trump_daily_approval <- trump_approval %>%
     Date = as.Date(enddate, "%m/%d/%y")
   ) %>% 
   group_by(Date) %>% 
-  summarize(approval_rating = mean(approve))
+  summarize(approve = mean(approve),disapprove = mean(disapprove))
 
 # A joined data frame with info from both of the above data frames
 daily_approval_and_frequency <- inner_join(trump_tweet_frequency, trump_daily_approval, by = "Date")
-View(daily_approval_and_frequency)
 
-approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approval_rating, daily_approval_and_frequency$Frequency)
-View(approval_and_frequency_correlation)
+
+approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approve, daily_approval_and_frequency$Frequency)
+
 
 
 
