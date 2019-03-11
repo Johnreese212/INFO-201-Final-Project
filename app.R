@@ -10,14 +10,13 @@ library("DT")
 source("analysis_a6.R")
 
 page_one <- tabPanel(
-  "Overview",
-  titlePanel("This app will analyze how different factors are influence based on the tweets 
-             of Donald Trump")
+  "Overview"
 )
 
 page_two <- tabPanel(
   "Tweet interaction based on key words",
-  titlePanel("How using certain key words affects the amount of interactions a tweet gets")
+  titlePanel("How using certain key words affect the amount of interactions a tweet gets")
+
 )
 
 page_three <- tabPanel(
