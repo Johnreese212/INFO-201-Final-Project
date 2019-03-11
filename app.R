@@ -132,7 +132,7 @@ my_server <- function(input,output) {
         title = paste("All of Donald Trump's Tweets in", month.name[input$month]),
         y = "Time of Day (00:00 to 24:00)",
         x = "Day of the Month",
-        color = "Is is a Retweet?"
+        color = "Is it a Retweet?"
       )
   })
   

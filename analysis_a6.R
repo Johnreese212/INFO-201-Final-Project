@@ -1,10 +1,10 @@
 #Load libraries
+library(plyr)
 library(jsonlite)
 library(httr)
 library(dplyr)
 library(stringr)
 library(tidyr)
-library(plyr)
 
 #Donald Trump's Twitter data from 2017
 trump_tweets <- read_json("data/2017_Trump_Twitter.json", simplifyVector = TRUE)
