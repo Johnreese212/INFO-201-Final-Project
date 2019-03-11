@@ -72,7 +72,7 @@ average_12_31<- mean(average_12_31$approve)
 # A data frame representing the number of daily tweets during 2017 by President Trump
 trump_tweet_frequency <- trump_tweets %>% 
   mutate(
-    Date = as.Date(trimws(paste(substr(created_at,4, 10), "2017")), "%b %d %Y")
+    Date = as.Date(trimws(paste(substr(created_at, 4, 10), "2017")), "%b %d %Y")
     , num = 1
     ) %>% 
   group_by(Date) %>% 
