@@ -90,18 +90,10 @@ trump_daily_approval <- trump_approval %>%
 # A joined data frame with info from both of the above data frames
 daily_approval_and_frequency <- inner_join(trump_tweet_frequency, trump_daily_approval, by = "Date")
 
-
-
 approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approve, daily_approval_and_frequency$Frequency)
-
-
-
-
-
 #View(daily_approval_and_frequency)
 
-approval_and_frequency_correlation <- cor(daily_approval_and_frequency$approval_rating, daily_approval_and_frequency$Frequency)
-#View(approval_and_frequency_correlation)
+
 
 
 # Trump Twitter Analysis
@@ -141,7 +133,8 @@ get_monthly_info <- function(given_month) {
     )
   
   avg_num_tweets <- round(avg_data$total_tweets / avg_data$num_days)
-  paste0("There were ", tweets, " tweets in ", date, " 2017, with an average of ", avg_num_tweets, " tweets per day.")
+  paste0("There were ", tweets, " tweets in ", date, 
+         " 2017, with an average of ", avg_num_tweets, " tweets per day.")
 }
 
 
