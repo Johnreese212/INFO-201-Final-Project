@@ -115,7 +115,9 @@ my_server <- function(input,output) {
       y <- as.numeric(daily_approval_and_frequency$Frequency)
       freq_cor <- round(cor(x,y),2)
       tex <- paste("The correlation between disapproval rating and frequency is", paste0(freq_cor, "."))
-    })
+    }
+    tex
+  })
   
   # Michelle Q data
   output$plotmontlytweets <- renderPlot({
@@ -133,33 +135,24 @@ my_server <- function(input,output) {
         color = "Is is a Retweet?"
       )
   })
+  
   output$twitterdata <- renderText({
     twitter_info <- get_monthly_info(input$month)
     twitter_info
   })
+  
   output$monthname <- renderText({
     month <- month.name[input$month]
     month
   })
+  
   output$tablemonthlytweets <- renderTable({
     table <- monthly_tweets
     table
-
   })
 }
 
 shinyApp(ui = my_ui, server = my_server)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
