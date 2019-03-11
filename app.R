@@ -12,13 +12,14 @@ source("analysis_a6.R")
 page_one <- tabPanel(
   "Overview",
   titlePanel("Trump's tweets and his approval rating during 2017"),
-  p( "Donald Trump's first year in office was unlike any other president's first year. For starters, 
-    he had a very low approval rating, which was curious considering that the economy was doing very well. 
-    Secondly, his style of communication was entirely new for American Presidents. His
-    default medium of communication to the people of America was through Twitter."),
-  p(""),
-  p("These two hallmarks of Donald Trump's first year in the Oval Office interest us because
-    we feel they can shed light on how social media is used in politics to shape public perception.")
+  p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2"),
+  p("Donald Trump often takes to Twitter to share his thoughts with the American public. 
+    As president of the United States, his duties and the perception of the American public are often 
+    intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication 
+    between Trump and both his supporters and rivals, allowing others an insight to his mind and life in the 
+    Oval Office. In this assignment, we will analyze the effect Trump's tweets had on his approval rating 
+    in 2017. By comparing these two sets of data, we can gain broader knowledge of how social media is 
+    used in politics.")
 )
 
 page_two <- tabPanel(
@@ -58,7 +59,7 @@ page_five <- tabPanel(
 )
 
 my_ui <- navbarPage(
-  "My app",
+  "Tweets of Approval",
   page_one,
   page_two,
   page_three,
