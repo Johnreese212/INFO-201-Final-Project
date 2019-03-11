@@ -23,7 +23,11 @@ page_one <- tabPanel(
 )
 
 page_two <- tabPanel(
-  "Keywords"
+  "Tweet interaction based on key words",
+  titlePanel("How using certain key words affect the amount of interactions a tweet gets"),
+  p("This will show which topics bring in the most likes and retweets among twitter users, and 
+    will show which topics spark the most conversation and activity on twitter and what topics people
+    care the most about")
 )
 
 page_three <- tabPanel(
