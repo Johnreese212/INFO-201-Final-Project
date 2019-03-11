@@ -10,7 +10,15 @@ library("DT")
 source("analysis_a6.R")
 
 page_one <- tabPanel(
-  "Overview"
+  "Overview",
+  titlePanel("Trump's tweets and his approval rating during 2017"),
+  p( "Donald Trump's first year in office was unlike any other president's first year. For starters, 
+    he had a very low approval rating, which was curious considering that the economy was doing very well. 
+    Secondly, his style of communication was entirely new for American Presidents. His
+    default medium of communication to the people of America was through Twitter."),
+  p(""),
+  p("These two hallmarks of Donald Trump's first year in the Oval Office interest us because
+    we feel they can shed light on how social media is used in politics to shape public perception.")
 )
 
 page_two <- tabPanel(
@@ -27,7 +35,13 @@ page_four <- tabPanel(
   sidebarLayout(
     sidebarPanel(
       radioButtons(inputId = "approve", label = "Metric",choices = c("approve","disapprove")),
-      textOutput(outputId = "corr")
+      textOutput(outputId = "corr"),
+      p(""),
+      p("As can be soon, there exists a weak negative correlation between both Trump's 
+      approval rating and tweeting frequency and a weak positive correlation between Trump's
+      disapproval rating and his tweeting frequency. Interestingly, the former correlation is stronger
+      than the latter. Perhaps this indicates that Trump pays more attention to his approval ratings than
+      his dissaproval ratings.")
     ),
     mainPanel(
       plotOutput(outputId = "frequency_plot"),
