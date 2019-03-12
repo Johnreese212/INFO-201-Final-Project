@@ -93,6 +93,7 @@ page_five <- tabPanel(
     ),
     
     mainPanel(
+      plotOutput("plot_query"),
       tableOutput("searchquery")
     )
     
@@ -179,6 +180,15 @@ my_server <- function(input,output) {
     } else {
       plot.data <- trump_tweets_date
     }
+  })
+  
+  output$plot_query<- renderPlot({
+    if (input$query == input$query) {
+      plot.data <- trump_approval_filtered 
+    }
+    
+    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_vline(xintercept = plotquery(input$query), color = "red")
+    
   })
 }
 
