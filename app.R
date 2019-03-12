@@ -79,7 +79,23 @@ page_four <- tabPanel(
 )
 
 page_five <- tabPanel(
-  "Russia"
+  "Russia",
+  titlePanel("Tracking Trump's Tweets"),
+  
+  sidebarLayout(
+    
+    sidebarPanel(
+      textInput(
+        inputId = "query",
+        label = "Trump mentioned:"
+      )
+    ),
+    
+    mainPanel(
+      tableOutput("searchquery")
+    )
+    
+  )
 )
 
 my_ui <- navbarPage(
@@ -92,6 +108,7 @@ my_ui <- navbarPage(
 )
 
 my_server <- function(input,output) {
+  
   output$frequency_plot <- renderPlot({
     ggplot(data = daily_approval_and_frequency,mapping = aes_string(x = "Frequency", y = input$approve)) +
       geom_point() +
@@ -150,6 +167,17 @@ my_server <- function(input,output) {
   output$tablemonthlytweets <- renderTable({
     table <- monthly_tweets
     table
+  })
+  
+  #Roshni's data
+  
+  output$searchquery <- renderTable({
+    
+    if (input$query == input$query) {
+      plot.data <- search_query(input$query) 
+    } else {
+      plot.data <- trump_tweets_date
+    }
   })
 }
 

@@ -61,6 +61,27 @@ summary_approval <- trump_approval %>%
     "Standard Deviation of Dissapproval" = round(sd(disapprove), digits = 1)
   )
 
+#Answering Russia question
+
+#Using as.Date function
+trump_approval <- read.csv("data/approval_polllist.csv", stringsAsFactors = FALSE)
+trump_approval_filtered <- trump_approval %>% filter(pollster == "Gallup") %>% select(enddate, approve) 
+enddate_2<- trump_approval_filtered$enddate %>% as.Date(format = "%m/%d/%y")
+trump_approval_filtered<- mutate(trump_approval_filtered, enddate_2 = enddate_2)
+trump_approval_filtered<- select(trump_approval_filtered, enddate = enddate_2, approve)
+
+trump_tweets_date <- trump_tweets %>% 
+  mutate(Date = as.Date(trimws(paste(substr(created_at, 4, 10), "2017")), format = "%b %d %Y"), num = 1) %>% select(text, retweet_count, favorite_count, Date)
+
+  #Search function for table
+search_query<- function(query, output) {
+  equation<- str_detect(trump_tweets_date$text, query) 
+  trump_tweets_keyword<- mutate(trump_tweets_date, keyword_present = equation)
+  trump_tweets_keyword<- filter(trump_tweets_keyword, trump_tweets_keyword$keyword_present == TRUE)
+  trump_tweets_keyword<- select(trump_tweets_keyword, text, retweet_count, favorite_count, Date)
+  trump_tweets_keyword
+}
+
 #Answering question #3
 
 average_12_31<- trump_approval[1343:1345,]
