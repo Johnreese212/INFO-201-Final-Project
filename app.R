@@ -127,7 +127,7 @@ my_server <- function(input,output) {
     
     ggplot(data = plot.data) +
       geom_point(mapping = aes(x = day, y = time, color = is_retweet)) + 
-      scale_y_discrete(breaks = NULL) +
+      scale_y_discrete(breaks = c("00:00:00", "24:00:00")) +
       labs(
         title = paste("All of Donald Trump's Tweets in", month.name[input$month]),
         y = "Time of Day (00:00 to 24:00)",
