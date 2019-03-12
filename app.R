@@ -89,7 +89,8 @@ page_five <- tabPanel(
       textInput(
         inputId = "query",
         label = "Trump mentioned:"
-      )
+      ),
+    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Some common terms are 'Russia' and 'Democrats'. There seems to be no clear correlation between Trump's tweets about Russia and his approval rating.")
     ),
     
     mainPanel(
@@ -187,7 +188,7 @@ my_server <- function(input,output) {
       plot.data <- trump_approval_filtered 
     }
     
-    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_vline(xintercept = plotquery(input$query), color = "red")
+    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
     
   })
 }

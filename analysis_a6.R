@@ -82,6 +82,7 @@ search_query<- function(query, output) {
   trump_tweets_keyword
 }
 
+
 #Answering question #3
 
 average_12_31<- trump_approval[1343:1345,]
