@@ -61,6 +61,27 @@ summary_approval <- trump_approval %>%
     "Standard Deviation of Dissapproval" = round(sd(disapprove), digits = 1)
   )
 
+#Answering Russia question
+
+#Using as.Date function
+trump_approval <- read.csv("data/approval_polllist.csv", stringsAsFactors = FALSE)
+trump_approval_filtered <- trump_approval %>% filter(pollster == "Gallup") %>% select(enddate, approve) 
+enddate_2<- trump_approval_filtered$enddate %>% as.Date(format = "%m/%d/%y")
+trump_approval_filtered<- mutate(trump_approval_filtered, enddate_2 = enddate_2)
+trump_approval_filtered<- select(trump_approval_filtered, enddate = enddate_2, approve)
+
+trump_tweets_date <- trump_tweets %>% 
+  mutate(Date = as.Date(trimws(paste(substr(created_at, 4, 10), "2017")), format = "%b %d %Y"), num = 1) %>% select(text, retweet_count, favorite_count, Date)
+
+  #Search function for table
+search_query<- function(query, output) {
+  equation<- str_detect(trump_tweets_date$text, query) 
+  trump_tweets_keyword<- mutate(trump_tweets_date, keyword_present = equation)
+  trump_tweets_keyword<- filter(trump_tweets_keyword, trump_tweets_keyword$keyword_present == TRUE)
+  trump_tweets_keyword<- select(trump_tweets_keyword, text, retweet_count, favorite_count, Date)
+  trump_tweets_keyword
+}
+
 #Answering question #3
 
 average_12_31<- trump_approval[1343:1345,]
@@ -71,21 +92,21 @@ average_12_31<- mean(average_12_31$approve)
 
 # A data frame representing the number of daily tweets during 2017 by President Trump
 trump_tweet_frequency <- trump_tweets %>% 
-  mutate(
+  dplyr::mutate(
     Date = as.Date(trimws(paste(substr(created_at, 4, 10), "2017")), "%b %d %Y")
     , num = 1
     ) %>% 
   group_by(Date) %>% 
-  summarize(Frequency = sum(num)) 
+  dplyr::summarise(Frequency = sum(num)) 
 
 # A data frame representing Trump's average daily approval ratings during 2017.
 # The date in the new data frame is the same as the 'enddate' in the trump_approval data frame.
 trump_daily_approval <- trump_approval %>% 
-  mutate(
+  dplyr::mutate(
     Date = as.Date(enddate, "%m/%d/%y")
   ) %>% 
   group_by(Date) %>% 
-  summarize(approve = mean(approve),disapprove = mean(disapprove))
+  dplyr::summarize(approve = mean(approve),disapprove = mean(disapprove))
 
 # A joined data frame with info from both of the above data frames
 daily_approval_and_frequency <- inner_join(trump_tweet_frequency, trump_daily_approval, by = "Date")
@@ -108,14 +129,14 @@ twitter_data <- twitter_data %>%
   select(month, day, year, time, created_at, text, retweet_count, favorite_count, is_retweet)
 
 monthly_tweets <- group_by(twitter_data, month) %>% 
-  count() %>% 
+  dplyr::count() %>% 
   as.data.frame(stringAsVariable = FALSE) %>% 
-  mutate("Month" = month.name[month],
+  dplyr::mutate("Month" = month.name[month],
          "Number of Tweets" = n) %>% 
   select("Month", "Number of Tweets")
 
 monthly_tweet_count <- group_by(twitter_data, month) %>% 
-  count()
+  dplyr::count()
 
 get_monthly_info <- function(given_month) {
   tweets <- monthly_tweet_count$n[monthly_tweet_count$month == given_month]
@@ -123,7 +144,7 @@ get_monthly_info <- function(given_month) {
   
   avg_data <- twitter_data %>% 
     filter(month == given_month) %>% 
-    summarize(
+    dplyr::summarize(
       num_days = as.numeric(max(day)),
       total_tweets = as.numeric(n()),
       most_retweeted = text[retweet_count == max(retweet_count)][1],

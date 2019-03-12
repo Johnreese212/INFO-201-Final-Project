@@ -1,5 +1,6 @@
 # INFO 201 Final App
 library("shiny")
+library("plyr")
 library("dplyr")
 library("ggplot2")
 library("tidyr")
@@ -13,6 +14,7 @@ page_one <- tabPanel(
   "Overview",
   titlePanel("Trump's tweets and his approval rating during 2017"),
   p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2"),
+  HTML('<img src="donald_trump.jpg" alt="Donald Trump", height = "400", align = "center">'),
   p("Donald Trump often takes to Twitter to share his thoughts with the American public. 
     As president of the United States, his duties and the perception of the American public are often 
     intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication 
@@ -78,7 +80,23 @@ page_four <- tabPanel(
 )
 
 page_five <- tabPanel(
-  "Russia"
+  "Approval Rating and Tweet Content",
+  titlePanel("Tracking Trump's Tweets"),
+  
+  sidebarLayout(
+    
+    sidebarPanel(
+      textInput(
+        inputId = "query",
+        label = "Trump mentioned:"
+      )
+    ),
+    
+    mainPanel(
+      tableOutput("searchquery")
+    )
+    
+  )
 )
 
 my_ui <- navbarPage(
@@ -91,6 +109,7 @@ my_ui <- navbarPage(
 )
 
 my_server <- function(input,output) {
+  
   output$frequency_plot <- renderPlot({
     ggplot(data = daily_approval_and_frequency,mapping = aes_string(x = "Frequency", y = input$approve)) +
       geom_point() +
@@ -150,10 +169,21 @@ my_server <- function(input,output) {
     table <- monthly_tweets
     table
   })
+  
+  #Roshni's data
+  
+  output$searchquery <- renderTable({
+    
+    if (input$query == input$query) {
+      plot.data <- search_query(input$query) 
+    } else {
+      plot.data <- trump_tweets_date
+    }
+  })
 }
 
-
 shinyApp(ui = my_ui, server = my_server)
+
 
 
 
