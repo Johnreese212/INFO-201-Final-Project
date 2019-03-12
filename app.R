@@ -1,5 +1,6 @@
 # INFO 201 Final App
 library("shiny")
+library("plyr")
 library("dplyr")
 library("ggplot2")
 library("tidyr")
@@ -153,6 +154,7 @@ my_server <- function(input,output) {
 }
 
 shinyApp(ui = my_ui, server = my_server)
+
 
 
 

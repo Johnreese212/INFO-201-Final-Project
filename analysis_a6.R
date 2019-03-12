@@ -71,21 +71,21 @@ average_12_31<- mean(average_12_31$approve)
 
 # A data frame representing the number of daily tweets during 2017 by President Trump
 trump_tweet_frequency <- trump_tweets %>% 
-  mutate(
+  dplyr::mutate(
     Date = as.Date(trimws(paste(substr(created_at, 4, 10), "2017")), "%b %d %Y")
     , num = 1
     ) %>% 
   group_by(Date) %>% 
-  summarize(Frequency = sum(num)) 
+  dplyr::summarise(Frequency = sum(num)) 
 
 # A data frame representing Trump's average daily approval ratings during 2017.
 # The date in the new data frame is the same as the 'enddate' in the trump_approval data frame.
 trump_daily_approval <- trump_approval %>% 
-  mutate(
+  dplyr::mutate(
     Date = as.Date(enddate, "%m/%d/%y")
   ) %>% 
   group_by(Date) %>% 
-  summarize(approve = mean(approve),disapprove = mean(disapprove))
+  dplyr::summarize(approve = mean(approve),disapprove = mean(disapprove))
 
 # A joined data frame with info from both of the above data frames
 daily_approval_and_frequency <- inner_join(trump_tweet_frequency, trump_daily_approval, by = "Date")
@@ -108,14 +108,14 @@ twitter_data <- twitter_data %>%
   select(month, day, year, time, created_at, text, retweet_count, favorite_count, is_retweet)
 
 monthly_tweets <- group_by(twitter_data, month) %>% 
-  count() %>% 
+  dplyr::count() %>% 
   as.data.frame(stringAsVariable = FALSE) %>% 
-  mutate("Month" = month.name[month],
+  dplyr::mutate("Month" = month.name[month],
          "Number of Tweets" = n) %>% 
   select("Month", "Number of Tweets")
 
 monthly_tweet_count <- group_by(twitter_data, month) %>% 
-  count()
+  dplyr::count()
 
 get_monthly_info <- function(given_month) {
   tweets <- monthly_tweet_count$n[monthly_tweet_count$month == given_month]
@@ -123,7 +123,7 @@ get_monthly_info <- function(given_month) {
   
   avg_data <- twitter_data %>% 
     filter(month == given_month) %>% 
-    summarize(
+    dplyr::summarize(
       num_days = as.numeric(max(day)),
       total_tweets = as.numeric(n()),
       most_retweeted = text[retweet_count == max(retweet_count)][1],
