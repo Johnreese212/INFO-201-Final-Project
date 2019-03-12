@@ -14,6 +14,7 @@ page_one <- tabPanel(
   "Overview",
   titlePanel("Trump's tweets and his approval rating during 2017"),
   p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2"),
+  HTML('<img src="donald_trump.jpg" alt="Donald Trump", height = "400", align = "center">'),
   p("Donald Trump often takes to Twitter to share his thoughts with the American public. 
     As president of the United States, his duties and the perception of the American public are often 
     intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication 
@@ -79,7 +80,7 @@ page_four <- tabPanel(
 )
 
 page_five <- tabPanel(
-  "Russia",
+  "Approval Rating and Tweet Content",
   titlePanel("Tracking Trump's Tweets"),
   
   sidebarLayout(
