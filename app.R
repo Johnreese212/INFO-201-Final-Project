@@ -76,7 +76,7 @@ page_two <- tabPanel(
           h2(textOutput("monthname")),
           p(textOutput("twitterdata")),
           br(),
-          p("In 2017, he posted 2,602 tweets total, including retweets, and 2,417, that were not retweets.")
+          p("In 2017, he posted 2,602 tweets total, including retweets, and 2,417 that were not retweets.")
         ),
         mainPanel(
           plotOutput("plotmontlytweets")
@@ -126,7 +126,7 @@ page_five <- tabPanel(
         label = "Trump mentioned:",
         value = "covfefe"
       ),
-    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating seems to decline slightly after tweeting about Russia. Queries are case-sensitive.")
+    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating was either already declining when he tweeted about Russia or declined soon after. Queries are case-sensitive.")
     ),
     
     mainPanel(
