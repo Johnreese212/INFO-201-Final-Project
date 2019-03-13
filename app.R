@@ -179,7 +179,7 @@ my_server <- function(input,output) {
     apr <- toString(input$approve)
     ggplot(data = daily_approval_and_frequency)+
       geom_point(mapping = aes_string(x = "Date", y = apr, size = "Frequency", color = "Frequency")) +
-      scale_color_gradient2(high="red", space ="Lab" )
+      scale_color_gradient2(mid = "yellow",high="blue", space ="Lab" )
   })
   output$corr <- renderText({
     tex <- ""
