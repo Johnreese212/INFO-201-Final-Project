@@ -6,6 +6,12 @@ library("ggplot2")
 library("tidyr")
 library("maps")
 library("DT")
+library("XML") 
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("RCurl")
 
 # Gives us access to the data and analysis from a6
 source("analysis_a6.R")
