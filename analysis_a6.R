@@ -82,6 +82,11 @@ search_query<- function(query, output) {
   trump_tweets_keyword
 }
 
+plotquery <- function(query, output) {
+  qtable <- search_query(query)
+  qdate <- qtable$Date
+  qdate
+}
 
 #Answering question #3
 
