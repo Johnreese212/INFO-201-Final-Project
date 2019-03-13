@@ -203,7 +203,7 @@ my_server <- function(input,output) {
     }
   })
   
-  output$plot_query<- renderPlot({
+  output$plot_query <- renderPlot({
     if (input$query == input$query) {
       plot.data <- trump_approval_filtered 
     }
