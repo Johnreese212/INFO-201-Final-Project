@@ -248,6 +248,7 @@ my_server <- function(input,output) {
     ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
     
   })
+  
   output$wordcloud <- renderImage({
     list(src = "Trump_Plot.png",
          contentType = 'image/png',

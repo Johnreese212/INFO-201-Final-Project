@@ -204,9 +204,11 @@ res<-rquery.wordcloud(filePath, type ="file", lang = "english", excludeWords = c
 
 word_frequency <- function(word) {
   word <- as.String(word)
-  words <- strsplit(all_tweets, split = " ")
+  words <- strsplit(tolower(all_tweets), split = " ")
   words <- as.data.frame(table(words), stringsAsFactors = FALSE)
   if (as.numeric(words$Freq[words$words == word]) > 0) {
     return(as.String(words$Freq[words$words == word]))
+  } else {
+    return("Word not found!")
   }
 }
