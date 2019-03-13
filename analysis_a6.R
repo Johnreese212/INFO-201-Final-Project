@@ -158,4 +158,24 @@ get_monthly_info <- function(given_month) {
          " 2017, with an average of ", avg_num_tweets, " tweets per day.")
 }
 
+avgs_by_month <- group_by(twitter_data, month) %>% 
+  dplyr::summarize(
+    num_days = as.numeric(max(day)),
+    total_tweets = as.numeric(n()),
+    most_retweeted = text[retweet_count == max(retweet_count)][1],
+    least_retweeted = text[retweet_count == min(retweet_count)][1],
+    most_favorited = text[favorite_count == max(favorite_count)][1],
+    least_favorited = text[favorite_count == min(favorite_count)][1]
+  ) %>% 
+  as.data.frame(stringAsFactor = FALSE) %>% 
+  dplyr::mutate(
+    "Month" = month.name[month],
+    "Avg Number of Tweets" = round(total_tweets / num_days, digits = 2),
+    "Most Retweeted" = most_retweeted,
+    "Least Retweeted" = least_retweeted,
+    "Most Favorited" = most_favorited,
+    "Least Favorited" = least_favorited
+  ) %>% 
+  select("Month", "Avg Number of Tweets", "Most Retweeted", "Least Retweeted", "Most Favorited", "Least Favorited")
 
+monthly_table <- left_join(monthly_tweets, avgs_by_month, by = "Month")
