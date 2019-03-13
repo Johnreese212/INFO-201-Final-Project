@@ -14,6 +14,7 @@ page_one <- tabPanel(
   "Overview",
   titlePanel("Trump's tweets and his approval rating during 2017"),
   p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2"),
+  HTML('<img src="donald_trump.jpg" alt="Donald Trump", height = "400", align = "center">'),
   p("Donald Trump often takes to Twitter to share his thoughts with the American public. 
     As president of the United States, his duties and the perception of the American public are often 
     intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication 
@@ -79,7 +80,25 @@ page_four <- tabPanel(
 )
 
 page_five <- tabPanel(
-  "Russia"
+  "Approval Rating and Tweet Content",
+  titlePanel("Tracking Trump's Tweets"),
+  
+  sidebarLayout(
+    
+    sidebarPanel(
+      textInput(
+        inputId = "query",
+        label = "Trump mentioned:"
+      ),
+    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating seems to decline slightly after tweeting about Russia.")
+    ),
+    
+    mainPanel(
+      plotOutput("plot_query"),
+      tableOutput("searchquery")
+    )
+    
+  )
 )
 
 my_ui <- navbarPage(
@@ -92,6 +111,7 @@ my_ui <- navbarPage(
 )
 
 my_server <- function(input,output) {
+  
   output$frequency_plot <- renderPlot({
     ggplot(data = daily_approval_and_frequency,mapping = aes_string(x = "Frequency", y = input$approve)) +
       geom_point() +
@@ -150,6 +170,26 @@ my_server <- function(input,output) {
   output$tablemonthlytweets <- renderTable({
     table <- monthly_tweets
     table
+  })
+  
+  #Roshni's data
+  
+  output$searchquery <- renderTable({
+    
+    if (input$query == input$query) {
+      plot.data <- search_query(input$query) 
+    } else {
+      plot.data <- trump_tweets_date
+    }
+  })
+  
+  output$plot_query<- renderPlot({
+    if (input$query == input$query) {
+      plot.data <- trump_approval_filtered 
+    }
+    
+    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
+    
   })
 }
 
