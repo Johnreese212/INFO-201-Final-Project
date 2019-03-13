@@ -182,4 +182,13 @@ avgs_by_month <- group_by(twitter_data, month) %>%
 monthly_table <- left_join(monthly_tweets, avgs_by_month, by = "Month")
 
 all_tweets <- gsub(',', '', paste(trump_tweets$text, collapse = ""))
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RCurl")
+library("XML")
+library("RColorBrewer")
 
+source('http://www.sthda.com/upload/rquery_wordcloud.r')
+filePath <- "data/all_tweets.txt"
+res<-rquery.wordcloud(filePath, type ="file", lang = "english", min.freq = 1,  max.words = 50)
