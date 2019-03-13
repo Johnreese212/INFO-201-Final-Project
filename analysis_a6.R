@@ -180,3 +180,6 @@ avgs_by_month <- group_by(twitter_data, month) %>%
   select("Month", "Avg Number of Tweets", "Most Retweeted", "Least Retweeted", "Most Favorited", "Least Favorited")
 
 monthly_table <- left_join(monthly_tweets, avgs_by_month, by = "Month")
+
+all_tweets <- gsub(',', '', paste(trump_tweets$text, collapse = ""))
+
