@@ -29,6 +29,8 @@ page_two <- tabPanel(
   p("This will show which topics bring in the most likes and retweets among twitter users, and 
     will show which topics spark the most conversation and activity on twitter and what topics people
     care the most about")
+  
+  
 )
 
 page_three <- tabPanel(
