@@ -193,15 +193,15 @@ library("XML")
 library("RColorBrewer")
 source('http://www.sthda.com/upload/rquery_wordcloud.r')
 filePath <- "data/all_tweets.txt"
-res<-rquery.wordcloud(filePath, type ="file", lang = "english", min.freq = 1,  max.words = 50)
+
+res<-rquery.wordcloud(filePath, type ="file", lang = "english", excludeWords = c("will", "amp", "even", "back", "want", "make", "get", "many", "much", "just", "realdonaldtrump", "day", "can", "going", "one", "must", "see", "ever", "since", "look", "said", "story", "made", "way", "foxandfriends"), min.freq = 1,  max.words = 100)
 
 
 word_frequency <- function(word) {
+  word <- as.String(word)
   words <- strsplit(all_tweets, split = " ")
   words <- as.data.frame(table(words), stringsAsFactors = FALSE)
-  if (words$Freq[words$words == word] > 0) {
-    return(words$Freq[words$words == word()])
-  } else {
-    return("Word not found")
+  if (as.numeric(words$Freq[words$words == word]) > 0) {
+    return(as.String(words$Freq[words$words == word]))
   }
 }

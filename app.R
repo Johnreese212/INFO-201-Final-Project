@@ -6,6 +6,12 @@ library("ggplot2")
 library("tidyr")
 library("maps")
 library("DT")
+library("XML") 
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("RCurl")
 
 # Gives us access to the data and analysis from a6
 source("analysis_a6.R")
@@ -28,18 +34,22 @@ page_one <- tabPanel(
 )
 
 page_two <- tabPanel(
-  "Tweet interaction based on key words",
-  titlePanel("How using certain key words affect the amount of interactions a tweet gets"),
+  "Tweets with trending Key words",
+  titlePanel("Most common used words by trump in his tweets"),
     sidebarLayout(
       sidebarPanel(
         textInput(
-          inputId = "wordQ4",
-          label = "Word"
+          inputId = "wordcloudinput",
+          label = "Input word:",
+          value = "great"
         ),
-        renderText("wordcount")
+        br(),
+        p("Number of times tweeted:"),
+        textOutput("wordcount")
       ),
       mainPanel(
-        p("blurb"),
+        p("This will show which topics trump spends the most time tweeting about and mentioning,
+    will show which issues take priority on social media for him"),
         imageOutput("wordcloud")
       )
    )
@@ -84,8 +94,12 @@ page_four <- tabPanel(
     sidebarPanel(
       radioButtons(inputId = "approve", label = "Metric",choices = c("approve","disapprove")),
       textOutput(outputId = "corr"),
-      p(""),
-      p("As can be seen, there exists a weak negative correlation between both Trump's approval rating and tweeting frequency and a weak positive correlation between Trump's disapproval rating and his tweeting frequency. Interestingly, the former correlation is stronger than the latter. Perhaps this indicates that Trump pays more attention to his approval ratings than his dissaproval ratings.")
+      br(),
+      p("As can be seen, there exists a weak negative correlation between both Trump's approval 
+        rating and tweeting frequency and a weak positive correlation between Trump's disapproval 
+        rating and his tweeting frequency. Interestingly, the former correlation is stronger than the latter. 
+        Perhaps this indicates that Trump pays more attention to his approval ratings than his dissaproval 
+        ratings.")
     ),
     mainPanel(
       plotOutput(outputId = "frequency_plot"),
@@ -119,6 +133,17 @@ page_five <- tabPanel(
   )
 )
 
+page_six <- tabPanel(
+  "References",
+  titlePanel("Our Data"),
+  p("The data about Donald Trump's approval rating comes from FiveThirtyEight, a website that has 
+    statistics on various topics, including politics and sports. This data can be found using the
+    following", a("link.", href = "https://projects.fivethirtyeight.com/trump-approval-ratings/")),
+  p("The data about Donald Trump's tweets comes from GitHub and was posted by user bpb27, who has posted 
+    a number of datasets relating to politics and social media. Our data was retrieved from this",
+    a("link.", href = "https://github.com/bpb27/trump-tweet-archive/blob/master/data/realdonaldtrump/2017.json"))
+)
+
 my_ui <- navbarPage(
   theme = "stylesheet.css",
   "Tweets of Approval",
@@ -127,6 +152,7 @@ my_ui <- navbarPage(
   page_three,
   page_four,
   page_five,
+  page_six,
   fluid = TRUE
 )
 
@@ -222,17 +248,21 @@ my_server <- function(input,output) {
     ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
     
   })
-  
   output$wordcloud <- renderImage({
-    list(src = "wordcloud.png",
+    list(src = "Trump_Plot.png",
          contentType = 'image/png',
-         alt = "Donald Trump Image",
-         width = "400", 
+         alt = "Word Cloud of commonly used words in Donald Trump's Tweets",
+         width = "719", 
          height = "auto")
   }, deleteFile = FALSE)
   
   output$wordcount <- renderText({
-    word_frequency(intput$wordQ4)
+    if (input$wordcloudinput == input$wordcloudinput) {
+      count <- word_frequency(input$wordcloudinput)
+    } else {
+      count <- "Word not found!"
+    }
+    as.String(count)
   })
 }
 
