@@ -5,8 +5,8 @@ account: johnreese212
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 787662
-bundleId: 1937269
+bundleId: 1937521
 url: https://johnreese212.shinyapps.io/INFO-201-Final-Project/
-when: 1552502572.62548
+when: 1552507666.84192
 asMultiple: FALSE
 asStatic: FALSE
