@@ -109,6 +109,17 @@ page_five <- tabPanel(
   )
 )
 
+page_six <- tabPanel(
+  "References",
+  titlePanel("Our Data"),
+  p("The data about Donald Trump's approval rating comes from FiveThirtyEight, a website that has 
+    statistics on various topics, including politics and sports. This data can be found using the
+    following", a("link.", href = "https://projects.fivethirtyeight.com/trump-approval-ratings/")),
+  p("The data about Donald Trump's tweets comes from GitHub and was posted by user bpb27, who has posted 
+    a number of datasets relating to politics and social media. Our data was retrieved from this",
+    a("link.", href = "https://github.com/bpb27/trump-tweet-archive/blob/master/data/realdonaldtrump/2017.json"))
+)
+
 my_ui <- navbarPage(
   "Tweets of Approval",
   page_one,
@@ -116,6 +127,7 @@ my_ui <- navbarPage(
   page_three,
   page_four,
   page_five,
+  page_six,
   fluid = TRUE
 )
 
@@ -211,6 +223,8 @@ my_server <- function(input,output) {
     ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
     
   })
+  
+  
 }
 
 shinyApp(ui = my_ui, server = my_server)
