@@ -75,7 +75,7 @@ trump_tweets_date <- trump_tweets %>%
 
   #Search function for table
 search_query<- function(query, output) {
-  equation<- str_detect(trump_tweets_date$text, query) 
+  equation<- str_detect(trump_tweets_date$text, query, fixed(query, ignore_case = TRUE)) 
   trump_tweets_keyword<- mutate(trump_tweets_date, keyword_present = equation)
   trump_tweets_keyword<- filter(trump_tweets_keyword, trump_tweets_keyword$keyword_present == TRUE)
   trump_tweets_keyword<- select(trump_tweets_keyword, text, retweet_count, favorite_count, Date)

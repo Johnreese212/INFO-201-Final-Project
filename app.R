@@ -109,7 +109,7 @@ page_five <- tabPanel(
         inputId = "query",
         label = "Trump mentioned:"
       ),
-    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating seems to decline slightly after tweeting about Russia.")
+    p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating seems to decline slightly after tweeting about Russia. Queries are case-sensitive.")
     ),
     
     mainPanel(
