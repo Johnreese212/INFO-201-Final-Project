@@ -82,6 +82,13 @@ search_query<- function(query, output) {
   trump_tweets_keyword
 }
 
+query_table <- function(query, output) {
+  search_query(query) %>% 
+    mutate(
+      Date = as.character(Date)
+    )
+}
+
 plotquery <- function(query, output) {
   qtable <- search_query(query)
   qdate <- qtable$Date
@@ -206,8 +213,8 @@ word_frequency <- function(word) {
   word <- as.String(word)
   words <- strsplit(tolower(all_tweets), split = " ")
   words <- as.data.frame(table(words), stringsAsFactors = FALSE)
-  if (as.numeric(words$Freq[words$words == word]) > 0) {
-    return(as.String(words$Freq[words$words == word]))
+  if (word %in% words$words) {
+      return(as.String(words$Freq[words$words == word]))
   } else {
     return("Word not found!")
   }

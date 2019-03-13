@@ -238,7 +238,7 @@ my_server <- function(input,output) {
   output$searchquery <- renderTable({
     
     if (input$query == input$query) {
-      plot.data <- search_query(input$query) 
+      plot.data <- query_table(input$query) 
     } else {
       plot.data <- trump_tweets_date
     }
