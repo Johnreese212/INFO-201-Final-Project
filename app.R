@@ -74,8 +74,12 @@ page_four <- tabPanel(
     sidebarPanel(
       radioButtons(inputId = "approve", label = "Metric",choices = c("approve","disapprove")),
       textOutput(outputId = "corr"),
-      p(""),
-      p("As can be seen, there exists a weak negative correlation between both Trump's approval rating and tweeting frequency and a weak positive correlation between Trump's disapproval rating and his tweeting frequency. Interestingly, the former correlation is stronger than the latter. Perhaps this indicates that Trump pays more attention to his approval ratings than his dissaproval ratings.")
+      br(),
+      p("As can be seen, there exists a weak negative correlation between both Trump's approval 
+        rating and tweeting frequency and a weak positive correlation between Trump's disapproval 
+        rating and his tweeting frequency. Interestingly, the former correlation is stronger than the latter. 
+        Perhaps this indicates that Trump pays more attention to his approval ratings than his dissaproval 
+        ratings.")
     ),
     mainPanel(
       plotOutput(outputId = "frequency_plot"),
