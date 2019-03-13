@@ -28,11 +28,21 @@ page_one <- tabPanel(
 )
 
 page_two <- tabPanel(
- "Tweet interaction based on key words",
+  "Tweet interaction based on key words",
   titlePanel("How using certain key words affect the amount of interactions a tweet gets"),
-  p("This will show which topics bring in the most likes and retweets among twitter users, and 
-    will show which topics spark the most conversation and activity on twitter and what topics people
-    care the most about")
+    sidebarLayout(
+      sidebarPanel(
+        textInput(
+          inputId = "wordQ4",
+          label = "Word"
+        ),
+        renderText("wordcount")
+      ),
+      mainPanel(
+        p("blurb"),
+        imageOutput("wordcloud")
+      )
+   )
 )
 
 page_three <- tabPanel(
@@ -110,6 +120,7 @@ page_five <- tabPanel(
 )
 
 my_ui <- navbarPage(
+  theme = "stylesheet.css",
   "Tweets of Approval",
   page_one,
   page_two,
@@ -211,14 +222,18 @@ my_server <- function(input,output) {
     ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
     
   })
+  
+  output$wordcloud <- renderImage({
+    list(src = "wordcloud.png",
+         contentType = 'image/png',
+         alt = "Donald Trump Image",
+         width = "400", 
+         height = "auto")
+  }, deleteFile = FALSE)
+  
+  output$wordcount <- renderText({
+    word_frequency(intput$wordQ4)
+  })
 }
 
 shinyApp(ui = my_ui, server = my_server)
-
-
-
-
-
-
-
-

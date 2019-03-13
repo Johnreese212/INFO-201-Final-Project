@@ -182,13 +182,26 @@ avgs_by_month <- group_by(twitter_data, month) %>%
 monthly_table <- left_join(monthly_tweets, avgs_by_month, by = "Month")
 
 all_tweets <- gsub(',', '', paste(trump_tweets$text, collapse = ""))
+
+# Code sourced from _Statistical tools for high-throughput data analysis_
+# link to website http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need
 library("tm")
 library("SnowballC")
 library("wordcloud")
 library("RCurl")
 library("XML")
 library("RColorBrewer")
-
 source('http://www.sthda.com/upload/rquery_wordcloud.r')
 filePath <- "data/all_tweets.txt"
 res<-rquery.wordcloud(filePath, type ="file", lang = "english", min.freq = 1,  max.words = 50)
+
+
+word_frequency <- function(word) {
+  words <- strsplit(all_tweets, split = " ")
+  words <- as.data.frame(table(words), stringsAsFactors = FALSE)
+  if (words$Freq[words$words == word] > 0) {
+    return(words$Freq[words$words == word()])
+  } else {
+    return("Word not found")
+  }
+}
