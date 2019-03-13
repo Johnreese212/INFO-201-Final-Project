@@ -178,9 +178,9 @@ my_server <- function(input,output) {
   output$date_plot <- renderPlot({
     apr <- toString(input$approve)
     ggplot(data = daily_approval_and_frequency)+
-      geom_point(mapping = aes_string(x = "Date", y = apr, color = "Frequency")) 
+      geom_point(mapping = aes_string(x = "Date", y = apr, size = "Frequency", color = "Frequency")) +
+      scale_color_gradient2(high="red", space ="Lab" )
   })
-  
   output$corr <- renderText({
     tex <- ""
     if (input$approve == "approve") {
