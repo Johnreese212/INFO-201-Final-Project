@@ -17,24 +17,23 @@ library("RCurl")
 source("analysis_a6.R")
 
 page_one <- tabPanel(
-  "Overview",
+  h5("Overview"),
   fluidRow(
     column(12,
       column(6,
-        titlePanel(h1("Trump's tweets and his approval rating during 2017", style = "color: #800000;")),
-        p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2")),
+        titlePanel(h1("Trump's Tweets and His Approval Rating During 2017", style = "color: #800000; font-weight: bold;")),
+        p("by Roshni Sinha, Michelle Ponting, Andy Straavaldson and John Reese -- Group AA2"),
+        br(),
+        p("Donald Trump often takes to Twitter to share his thoughts with the American public. As president of the United States, his duties and the perception of the American public are often intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication between Trump and both his supporters and rivals, allowing others an insight to his mind and life in the Oval Office. In this assignment, we will analyze the effect Trump's tweets had on his approval rating in 2017. By comparing these two sets of data, we can gain broader knowledge of how social media is used in politics.")),
       column(6, 
         imageOutput("trumpImage")
       )
-    ),
-    column(12,
-           p("Donald Trump often takes to Twitter to share his thoughts with the American public. As president of the United States, his duties and the perception of the American public are often intertwined. Twitter, a social media platform used to share short posts, acts as a means of communication between Trump and both his supporters and rivals, allowing others an insight to his mind and life in the Oval Office. In this assignment, we will analyze the effect Trump's tweets had on his approval rating in 2017. By comparing these two sets of data, we can gain broader knowledge of how social media is used in politics.")
     )
   )
 )
 
-page_two <- tabPanel(
-  "Tweets with trending Key words",
+page_three <- tabPanel(
+  h5("Tweets with trending Key words"),
   titlePanel("Most common used words by trump in his tweets"),
     sidebarLayout(
       sidebarPanel(
@@ -55,8 +54,8 @@ page_two <- tabPanel(
    )
 )
 
-page_three <- tabPanel(
-  "Twitter Activity Analysis",
+page_two <- tabPanel(
+  h5("Twitter Activity Analysis"),
   titlePanel("Analysis of President Trump's Twitter Activity in 2017"),
   fluidRow(
     column(12, 
@@ -88,7 +87,7 @@ page_three <- tabPanel(
 )
 
 page_four <- tabPanel(
-  "Approval Rating and Tweeting Frequency", # Label for the tab in the navbar
+  h5("Approval Rating and Tweeting Frequency"), # Label for the tab in the navbar
   titlePanel("How did changes in Trump's approval/disapproval rating affect how often he tweeted?"),
   sidebarLayout(
     sidebarPanel(
@@ -112,7 +111,7 @@ page_four <- tabPanel(
 )
 
 page_five <- tabPanel(
-  "Approval Rating and Tweet Content",
+  h5("Approval Rating and Tweet Content"),
   titlePanel("Tracking Trump's Tweets"),
   
   sidebarLayout(
@@ -120,7 +119,8 @@ page_five <- tabPanel(
     sidebarPanel(
       textInput(
         inputId = "query",
-        label = "Trump mentioned:"
+        label = "Trump mentioned:",
+        value = "covfefe"
       ),
     p("This page allows the user to search any term Trump mentions and view his approval rating at the time he said it. Only approval rating from Gallup are plotted to allow for consistency. Trump's average approval rating was 38.5%, denoted by the black horizontal line. Some common terms mentioned by Trump are 'Russia' and 'Democrats'. As a general trend, Trump's approval rating seems to decline slightly after tweeting about Russia. Queries are case-sensitive.")
     ),
@@ -134,7 +134,7 @@ page_five <- tabPanel(
 )
 
 page_six <- tabPanel(
-  "References",
+  h5("References"),
   titlePanel("Our Data"),
   p("The data about Donald Trump's approval rating comes from FiveThirtyEight, a website that has 
     statistics on various topics, including politics and sports. This data can be found using the
@@ -146,21 +146,21 @@ page_six <- tabPanel(
 
 my_ui <- navbarPage(
   theme = "stylesheet.css",
-  "Tweets of Approval",
+  h5("Tweets of Approval"),
   page_one,
   page_two,
   page_three,
   page_four,
   page_five,
   page_six,
-  fluid = TRUE
+  inverse = TRUE
 )
 
 my_server <- function(input,output) {
   # Overview
   
   output$trumpImage <- renderImage({
-    list(src = "donald_trump.jpg",
+    list(src = "www/donald_trump.jpg",
          contentType = 'image/png',
          alt = "Donald Trump Image",
          width = "400", 
@@ -250,7 +250,7 @@ my_server <- function(input,output) {
   })
   
   output$wordcloud <- renderImage({
-    list(src = "Trump_Plot.png",
+    list(src = "www/Trump_Plot.png",
          contentType = 'image/png',
          alt = "Word Cloud of commonly used words in Donald Trump's Tweets",
          width = "719", 

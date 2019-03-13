@@ -1,8 +1,20 @@
 body {
-  color: red;
-  background-image: url("https://www.yourtango.com/sites/default/files/styles/body_image_default/public/image_list/Trump16.jpg?itok=t1cx4K8v");
+  color: black;
+  font-family: serif, sans-serif;
 }
 
-.navbar {
-  background-color: red;
+h5 {
+  color: #0000000;
+}
+
+p {
+  font-size: 135%;
+}
+
+.shiny-text-output {
+  font-size: 135%;
+}
+
+.form-group {
+  font-size: 135%;
 }
