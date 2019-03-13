@@ -33,8 +33,8 @@ page_one <- tabPanel(
 )
 
 page_three <- tabPanel(
-  h5("Tweets with trending Key words"),
-  titlePanel("Most common used words by trump in his tweets"),
+  h5("Tweets With Trending Key Words"),
+  titlePanel("Most Commonly Used Words By Trump In His Tweets"),
     sidebarLayout(
       sidebarPanel(
         textInput(
@@ -44,11 +44,15 @@ page_three <- tabPanel(
         ),
         br(),
         p("Number of times tweeted:"),
-        textOutput("wordcount")
+        textOutput("wordcount"),
+        br(),
+        p("This will show which topics trump spends the most time tweeting about and mentioning,
+          will show which issues take priority on social media for him. The larger a word is on the word
+          cloud, the more often he uses one of those phrases. You can inmput any word into the widget
+          and it will report how many times that word was used in 2017. The word cloud can also show 
+          how much he tweets in line with current events and trends in the political world.")
       ),
       mainPanel(
-        p("This will show which topics trump spends the most time tweeting about and mentioning,
-    will show which issues take priority on social media for him"),
         imageOutput("wordcloud")
       )
    )
@@ -178,9 +182,9 @@ my_server <- function(input,output) {
   output$date_plot <- renderPlot({
     apr <- toString(input$approve)
     ggplot(data = daily_approval_and_frequency)+
-      geom_point(mapping = aes_string(x = "Date", y = apr, color = "Frequency")) 
+      geom_point(mapping = aes_string(x = "Date", y = apr, size = "Frequency", color = "Frequency")) +
+      scale_color_gradient2(mid = "yellow",high="blue", space ="Lab" )
   })
-  
   output$corr <- renderText({
     tex <- ""
     if (input$approve == "approve") {
