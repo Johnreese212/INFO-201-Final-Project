@@ -35,7 +35,7 @@ page_one <- tabPanel(
 
 page_two <- tabPanel(
   "Tweets with trending Key words",
-  titlePanel("Most common used words by trump in his tweets"),
+  titlePanel("Most frequently used words by Trump in his tweets"),
     sidebarLayout(
       sidebarPanel(
         textInput(
@@ -49,7 +49,10 @@ page_two <- tabPanel(
       ),
       mainPanel(
         p("This will show which topics trump spends the most time tweeting about and mentioning,
-    will show which issues take priority on social media for him"),
+          will show which issues take priority on social media for him. The larger a word is on the word
+          cloud, the more often he uses one of those phrases. You can inmput any word into the widget
+          and it will report how many times that word was used in 2017. The word cloud can also show 
+          how much he tweets in line with current events and trends in the political world."),
         imageOutput("wordcloud")
       )
    )
