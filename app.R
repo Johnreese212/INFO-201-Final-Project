@@ -39,7 +39,7 @@ page_three <- tabPanel(
       sidebarPanel(
         textInput(
           inputId = "wordcloudinput",
-          label = "Input word:",
+          label = "Trump mentioned:",
           value = "great"
         ),
         br(),
@@ -92,7 +92,7 @@ page_two <- tabPanel(
 
 page_four <- tabPanel(
   h5("Approval Rating and Tweeting Frequency"), # Label for the tab in the navbar
-  titlePanel("How did changes in Trump's approval/disapproval rating affect how often he tweeted?"),
+  titlePanel("How Trump's Approval Rating Affected How Often He Tweeted"),
   sidebarLayout(
     sidebarPanel(
       radioButtons(inputId = "approve", label = "Metric",choices = c("approve","disapprove")),
@@ -150,7 +150,7 @@ page_six <- tabPanel(
 
 my_ui <- navbarPage(
   theme = "stylesheet.css",
-  "Tweets of Approval",
+  h4("Tweets of Approval", style = "color: #FFFFFF; font-weight: bold;"),
   page_one,
   page_two,
   page_three,
@@ -167,7 +167,7 @@ my_server <- function(input,output) {
     list(src = "www/donald_trump.jpg",
          contentType = 'image/png',
          alt = "Donald Trump Image",
-         width = "400", 
+         width = "600", 
          height = "auto")
   }, deleteFile = FALSE)
   
@@ -238,7 +238,15 @@ my_server <- function(input,output) {
   output$searchquery <- renderTable({
     
     if (input$query == input$query) {
-      plot.data <- query_table(input$query) 
+      plot.data <- query_table(input$query) %>% 
+        mutate (
+          "Text" = text,
+          "Retweet Count" = retweet_count,
+          "Favorite Count" = favorite_count
+        ) %>% 
+        select (
+          "Text", "Retweet Count", "Favorite Count", "Date"
+        )
     } else {
       plot.data <- trump_tweets_date
     }
@@ -249,7 +257,13 @@ my_server <- function(input,output) {
       plot.data <- trump_approval_filtered 
     }
     
-    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") + geom_vline(xintercept = plotquery(input$query), color = "red")
+    ggplot(trump_approval_filtered, aes(x = enddate, y = approve)) + 
+      geom_line(group = 1, color = "blue") + geom_hline(yintercept = 38.5, color = "black") +
+      geom_vline(xintercept = plotquery(input$query), color = "red") +
+      labs(
+        x = "Date",
+        y = "Approval Rating"
+      )
     
   })
   
@@ -257,7 +271,7 @@ my_server <- function(input,output) {
     list(src = "www/Trump_Plot.png",
          contentType = 'image/png',
          alt = "Word Cloud of commonly used words in Donald Trump's Tweets",
-         width = "719", 
+         width = "800", 
          height = "auto")
   }, deleteFile = FALSE)
   
