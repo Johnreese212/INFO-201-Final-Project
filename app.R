@@ -150,7 +150,7 @@ page_six <- tabPanel(
 
 my_ui <- navbarPage(
   theme = "stylesheet.css",
-  h5("Tweets of Approval"),
+  "Tweets of Approval",
   page_one,
   page_two,
   page_three,
